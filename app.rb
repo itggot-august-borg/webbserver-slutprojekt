@@ -16,9 +16,9 @@ class App < Sinatra::Base
 	
 		db = SQLite3::Database.new('db/login.sqlite')
 		db.execute("INSERT INTO users('Name') VALUES(?)", [user_name])
-		result = db.execute("SELECT UserId FROM artists WHERE Name=?", [user_name])
+		result = db.execute("SELECT UserId FROM users WHERE Name=?", [user_name])
 		user_id = result[0][0]
 		
-		redirect "/artists/#{user_id}"
+		redirect "/users/#{user_id}"
 	end
 end           
