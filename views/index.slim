@@ -1,0 +1,7 @@
+- for chatroom in chatrooms
+	.chatroom
+		a href="/chatroom/#{chatroom['id']}"
+			h2
+				| Chatroom #
+				= chatroom["id"]
+		p = chatroom["description"]

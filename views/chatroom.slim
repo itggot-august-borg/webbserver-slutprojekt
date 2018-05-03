@@ -1,0 +1,44 @@
+h1 Talk!
+h2
+	| Topic: 
+	= topic
+h3 id="timer"
+	| Time left: 
+	= seconds_left
+	|  seconds
+.chat
+	- for message in messages
+		.message
+			= message["time_posted"]
+			|  - 
+			= message["user"]["username"]
+			| : 
+			= message["message"]
+form.post-message method="post" action="/chatroom/#{chatroom['id']}"
+	input type="text" name="message" placeholder="Write message..."
+	input type="submit" value="Send"
+a id="seconds-left" style="display: none;" = seconds_left
+
+javascript:
+	var element = document.getElementsByClassName("chat")[0];
+	element.scrollTop = element.scrollHeight;
+
+	var secondsLeft = parseInt(document.getElementById("seconds-left").innerHTML);
+	var timer = document.getElementById("timer");
+	setInterval(function() {
+		secondsLeft--;
+		/*
+			Om den inte denna timern skulle stämma överens med serverns
+			kommer den ladda om sidan varje sekund tills den är.
+			Det gör inte så mycket om användaren skulle
+			missa någon sekund av det nya ämnet.
+		*/
+		if (secondsLeft <= 0) {
+			window.location.reload(true);
+		}
+		timer.innerHTML = "Time left: " + secondsLeft + " seconds";
+	}, 1000);
+
+	var input = document.getElementsByName("message")[0];
+	input.focus();
+	input.select();
