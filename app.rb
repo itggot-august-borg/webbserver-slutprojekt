@@ -6,7 +6,7 @@ class App < Sinatra::Base
 	
 	enable :sessions
 	
-	TIME_STEP = Rational(1, 1440) # 0,25 1440-delar av dygnet, alltså 0,25 minuter
+	TIME_STEP = Rational(1, 1440)
 	
 	get("/") do
 		if !is_logged_in()
